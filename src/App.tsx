@@ -59,7 +59,7 @@ function App() {
       //   }px background: ${getBackground()}`
       // );
     }
-  }, [size]);
+  }, [size, saveAreaHeight, saveAreaWidth]);
 
   const handleClick = (index: number) => {
     setCurrentIdx(index);
