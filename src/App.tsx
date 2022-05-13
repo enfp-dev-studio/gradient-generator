@@ -32,7 +32,7 @@ function App() {
   const [deg, setDeg] = useState(233);
   const [colors] = useAtom(colorsAtom);
   const [currentColor, setCurrentColor] = useState(colors[0]);
-  const [imageName, setImageName] = useState("gradient_img");
+  const [imageNamePrefix, setImageNamePrefix] = useState("img");
   // const [, addColor] = useAtom(addColorToAtom);
   const [, changeColor] = useAtom(changeColorToAtom);
   const [, changeSize] = useAtom(changeSizeAtom);
@@ -90,40 +90,40 @@ function App() {
       if (exportType === "png") {
         htmlToImage
           .toPng(saveDiv)
-          .then(function (dataUrl) {
+          .then(function (dataUrl: string) {
             let link = document.createElement("a");
             link.href = dataUrl;
-            link.download = imageName;
+            link.download = imageNamePrefix + `_${size.width}_${size.height}`;
             link.click();
             // document.body.appendChild(img);
           })
-          .catch(function (error) {
+          .catch(function (error: any) {
             console.error("faileld to the image", error);
           });
       } else if (exportType === "jpg") {
         htmlToImage
           .toJpeg(saveDiv)
-          .then(function (dataUrl) {
+          .then(function (dataUrl: string) {
             let link = document.createElement("a");
             link.href = dataUrl;
-            link.download = imageName;
+            link.download = imageNamePrefix + `_${size.width}_${size.height}`;
             link.click();
             // document.body.appendChild(img);
           })
-          .catch(function (error) {
+          .catch(function (error: any) {
             console.error("faileld to the image", error);
           });
       } else if (exportType === "svg") {
         htmlToImage
           .toSvg(saveDiv)
-          .then(function (dataUrl) {
+          .then(function (dataUrl: string) {
             let link = document.createElement("a");
             link.href = dataUrl;
-            link.download = imageName;
+            link.download = imageNamePrefix + `_${size.width}_${size.height}`;
             link.click();
             // document.body.appendChild(img);
           })
-          .catch(function (error) {
+          .catch(function (error: any) {
             console.error("faileld to the image", error);
           });
       }
@@ -177,11 +177,34 @@ function App() {
             }}
           >
             <Typography style={{ width: 60, marginRight: 10 }}>
+              Prefix
+            </Typography>
+            <Input
+              style={{
+                width: 120,
+              }}
+              onChange={(e: any) => {
+                e.preventDefault();
+                setImageNamePrefix(e.target.value);
+              }}
+              // type="number"
+              value={imageNamePrefix}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Typography style={{ width: 60, marginRight: 10 }}>
               Width
             </Typography>
             <Input
               style={{
-                width: 80,
+                width: 120,
               }}
               onChange={(e: any) => {
                 e.preventDefault();
@@ -214,7 +237,7 @@ function App() {
             </Typography>
             <Input
               style={{
-                width: 80,
+                width: 120,
               }}
               onChange={(e: any) => {
                 e.preventDefault();
@@ -293,7 +316,7 @@ function App() {
             </Typography>
             <Input
               style={{
-                width: 80,
+                width: 120,
               }}
               onChange={(e: any) => {
                 e.preventDefault();
